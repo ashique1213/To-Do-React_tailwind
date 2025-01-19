@@ -5,8 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
-
-
 function App() {
 
   const [todo,setTodo] = useState("")
@@ -51,6 +49,7 @@ function App() {
     setTodo("")
     setSave(true)
   }
+
   const handleChange = (e) => {
     setTodo(e.target.value)
     
@@ -76,8 +75,8 @@ function App() {
         <div className="addTodo my-5 flex flex-col gap-4">
           <h2 className='text-lg font-bold'>Add a Todo</h2>
           <div className='flex '>
-          <input onChange={handleChange} value={todo} type="text" className='w-full rounded-lg px-3 py-1' />
-          <button onClick={handleAdd} className='bg-violet-800 hover:bg-violet-950 p-2 py-2 text-sm font-bold  text-white rounded-lg mx-2'>Save</button>
+            <input onChange={handleChange} value={todo} type="text" className='w-full rounded-lg px-3 py-1' />
+            <button onClick={handleAdd} className='bg-violet-800 hover:bg-violet-950 p-2 py-2 text-sm font-bold  text-white rounded-lg mx-2'>Save</button>
           </div>
         </div>
         <h2 className='text-lg font-bold'>Your Todos</h2>
@@ -86,17 +85,15 @@ function App() {
           {todos.map(item => { 
             return <div key={item.id} className="todos flex  my-3 justify-between">
               <div className='flex gap-5'>
-            <input name={item.id} onChange={handleCheckbox} type="checkbox" checked={item.isCompleted} id="" />
-            <div className={`truncate ${item.isCompleted ? "line-through" : ""} w-[300px]`}>{item.todo}</div>
+                <input name={item.id} onChange={handleCheckbox} type="checkbox" checked={item.isCompleted} id="" />
+                <div className={`truncate ${item.isCompleted ? "line-through" : ""} w-[300px]`}>{item.todo}</div>
               </div>
             <div className="buttons flex h-full">
-              <button onClick={ (e)=>{handleEdit(e, item.id)}} className='bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1'><FaEdit />
-              </button>
-                <button onClick={ (e)=>{handleDelete(e, item.id)}} className='bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1'><MdDelete /></button>
+              <button onClick={ (e)=>{handleEdit(e, item.id)}} className='bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1'><FaEdit /></button>
+              <button onClick={ (e)=>{handleDelete(e, item.id)}} className='bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1'><MdDelete /></button>
             </div>
-
           </div>
-            })}
+          })}
         </div>
     </div>
     </>
