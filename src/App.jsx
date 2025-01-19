@@ -11,6 +11,7 @@ function App() {
 
   const [todo,setTodo] = useState("")
   const [todos, setTodos] = useState([])
+  const [save, setSave] = useState(false)
 
   useEffect(() => {
     const todoString = localStorage.getItem("todos")
@@ -20,9 +21,12 @@ function App() {
     }
   },[])
   
-  const saveToLS = () => {
-    localStorage.setItem("todos",JSON.stringify(todos))
-  }
+  useEffect(() => {
+    if (save) {
+      localStorage.setItem("todos", JSON.stringify(todos))
+      setSave(false)
+    }
+  }, [save])
 
   const handleEdit = (e, id) => {
     let t = todos.filter(i => i.id === id)
@@ -31,7 +35,7 @@ function App() {
       return item.id!==id
     })
     setTodos(newTodos)
-    saveToLS()
+    setSave(true)
   }
 
   const handleDelete = (e,id) => {
@@ -39,13 +43,13 @@ function App() {
       return item.id!==id
     })
     setTodos(newTodos)
-    saveToLS()
+    setSave(true)
   }
 
   const handleAdd = () => {
     setTodos([...todos, {id:uuidv4(),todo, isCompleted: false }])
     setTodo("")
-    saveToLS()
+    setSave(true)
   }
   const handleChange = (e) => {
     setTodo(e.target.value)
@@ -60,7 +64,7 @@ function App() {
     let newTodos = [...todos];
     newTodos[index].isCompleted = !newTodos[index].isCompleted;
     setTodos(newTodos)
-    saveToLS();
+    setSave(true)
   }
   
 
@@ -80,11 +84,10 @@ function App() {
         <div className='todos'>
           {todos.length===0 && <div className='m-5'>No To-Do list</div>}
           {todos.map(item => { 
-
             return <div key={item.id} className="todos flex  my-3 justify-between">
               <div className='flex gap-5'>
-            <input name={item.id} onChange={handleCheckbox} type="checkbox" value={item.isCompleted} id="" />
-            <div className={item.isCompleted?"line-through":""}>{item.todo}</div>
+            <input name={item.id} onChange={handleCheckbox} type="checkbox" checked={item.isCompleted} id="" />
+            <div className={`truncate ${item.isCompleted ? "line-through" : ""} w-[300px]`}>{item.todo}</div>
               </div>
             <div className="buttons flex h-full">
               <button onClick={ (e)=>{handleEdit(e, item.id)}} className='bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1'><FaEdit />
