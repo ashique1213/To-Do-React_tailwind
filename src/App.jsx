@@ -80,7 +80,7 @@ function App() {
           <h2 className='text-lg font-bold'>Add a Todo</h2>
           <div className='flex '>
             <input onChange={handleChange} value={todo} type="text" placeholder="Enter your todo here" className='w-full rounded-lg px-3 py-2' />
-            <button onClick={handleAdd} className='bg-violet-800 hover:bg-violet-950 p-2 py-2 text-sm font-bold  text-white rounded-lg mx-2'>ADD</button>
+            <button onClick={handleAdd} className='bg-violet-800 hover:bg-violet-950 p-2 py-2 text-sm font-bold  text-white rounded-lg mx-2'>Save</button>
           </div>
         </div>
         <h2 className='text-lg font-bold'>Your Todos</h2>
